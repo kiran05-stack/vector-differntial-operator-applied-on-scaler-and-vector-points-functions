@@ -1,0 +1,128 @@
+Example 1: Find Vf of f = x²yz at the point (1, 2, 3).
+kill(all)$
+
+load("vect")$
+
+f: x^2 * y * z$
+
+express(grad(f))$
+grdf: ev(%, nouns)$
+grdf: ev(grdf, x=1, y=2, z=3)$
+
+print("Gradient of f at (1,2,3) =", grdf)$
+
+
+To find the divergence of a vector point function F:
+
+Example 4: Find div F of F = (x²y) i + (yz²)j + (zx²)k at the point (1, 2, 3).
+kill(all)$
+
+load("vect")$
+
+F: [x^2 * y, y * z^2, z * x^2]$
+
+express(div(F))$
+divF: ev(%, nouns)$
+divF: ev(divF, x=1, y=2, z=3)$
+
+print("Divergence of F is:", divF)$
+
+Example 6: Find curl F of F = (xy²)i+ (2x²yz)j (3yz²)k at the point (1, 1, 1).
+kill(all)$
+
+load("vect")$
+
+F: [x * y^2, 2 * x^2 * y * z, -3 * y * z^2]$
+
+express(curl(F))$
+curlF: ev(%, nouns)$
+curlF: ev(curlF, x=1, y=1, z=1)$
+
+print("Curl of F is:", curlF)$
+
+Example 8: Find a unit vector normal to the surface x²y - 2xz + 2y2z4 = 10 at the point (2, 1, -1).
+
+kill(all)$
+
+load("vect")$
+
+f: x^2*y - 2*x*z + 2*y^2*z^4 - 10$
+
+express(grad(f))$
+grdf: ev(%, nouns)$
+grdf: ev(grdf, x=2, y=1, z=-1)$
+
+print("Gradient of f:", grdf)$
+
+magn_grdf: sqrt(sum(grdf[i]^2, i, 1, length(grdf)))$
+unit_vector: map(lambda([v], v/magn_grdf), grdf)$
+
+print("Unit vector normal to the surface f at (2,1,-1):", unit_vector)$
+
+Example 8: Find a unit vector normal to the surface x²y - 2xz + 2y2z4 = 10 at the point (2, 1, -1).
+
+kill(all)$
+
+load("vect")$
+
+f: x^2 * y - 2 * x * z + 2 * y^2 * z^4 - 10$
+
+express(grad(f))$
+grdf: ev(%, nouns)$
+grdf: ev(grdf, x=2, y=1, z=-1)$
+
+print("Gradient of f:", grdf)$
+
+magn_grdf: sqrt(sum(grdf[i]^2, i, 1, length(grdf)))$
+unit_vector: map(lambda([v], v / magn_grdf), grdf)$
+
+print("Unit vector normal to the surface f at (2,1,-1):", unit_vector)$
+
+Example 10: Find the directional derivative of f = x²+y2 at the point (1, -1, 1) in the direction of vector i - 2j + k. XZ
+
+kill(all)$
+
+load("vect")$
+
+f: (x * z) / (x^2 + y^2)$
+
+express(grad(f))$
+grdf: ev(%, nouns)$
+grdf: ev(grdf, x=1, y=-1, z=1)$
+
+print("Gradient of f at (1, -1, 1):", grdf)$
+
+d: [1, -2, 1]$
+magn_d: sqrt(sum(d[i]^2, i, 1, length(d)))$
+unit_vector: map(lambda([v], v / magn_d), d)$
+
+print("Unit vector in the direction of [1, -2, 1]:", unit_vector)$
+
+d_d_f: grdf . unit_vector$
+print("Directional derivative of f at (1, -1, 1) along i - 2j + k:", d_d_f)$
+
+
+Example 12: Verify that the given vector point function F = 3y*z2i + 4x3z2j + 3x²y²k is solenoidal or irrotational.
+
+kill(all)$
+
+load("vect")$
+
+F: [3 * y * z^2, 4 * x^3 * z^2, 3 * x^2 * y^2]$
+
+express(div(F))$
+divF: ev(%, nouns)$
+DivF: ratsimp(divF)$
+
+print("Divergence of F is:", DivF)$
+
+if DivF = 0 then print("Vector point function F is solenoidal") else print("Vector point function F is not solenoidal")$
+
+express(curl(F))$
+curlF: ev(%, nouns)$
+
+print("Curl of F is:", curlF)$
+
+if curlF = [0, 0, 0] then print("Vector point function F is irrotational") else print("Vector point function F is not irrotational")$
+
+
